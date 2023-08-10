@@ -1,13 +1,11 @@
-package com.likelion.daroomi.nuroomi.domain;
+package com.likelion.daroomi.nuroomi.domain.user;
 
+import com.likelion.daroomi.nuroomi.domain.Address;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,7 +14,7 @@ public abstract class AllUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @NotNull
     @Column(length = 50)
@@ -32,7 +30,7 @@ public abstract class AllUser {
     @Column(length = 50)
     private String name;
 
-    @Column(length = 50)
+    @Column(length = 15)
     private String phoneNumber;
 
     @Column(length = 7)
