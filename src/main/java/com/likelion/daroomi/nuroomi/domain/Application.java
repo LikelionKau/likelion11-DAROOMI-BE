@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKey;
 import jakarta.persistence.MapsId;
@@ -23,14 +24,17 @@ public class Application {
     private Long consultantId;
 
     @NotNull
+    @Lob
     @Column(name = "q1")
     private String question1;
 
     @NotNull
+    @Lob
     @Column(name = "q2")
     private String question2;
 
     @NotNull
+    @Lob
     @Column(name = "q3")
     private String question3;
 
