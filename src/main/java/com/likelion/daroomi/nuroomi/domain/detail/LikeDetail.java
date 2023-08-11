@@ -23,9 +23,9 @@ public class LikeDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean like;
+    private Boolean likes;
 
-    private Boolean dislike;
+    private Boolean dislikes;
 
     @Column(length = 50)
     private String reason;
