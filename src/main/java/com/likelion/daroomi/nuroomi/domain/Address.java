@@ -13,5 +13,5 @@ public class Address {
     private String addressBase;
 
     @Column(length = 50)
-    private String address_detail;
+    private String addressDetail;
 }
