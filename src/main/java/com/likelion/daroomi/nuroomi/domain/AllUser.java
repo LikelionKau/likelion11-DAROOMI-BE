@@ -1,6 +1,5 @@
-package com.likelion.daroomi.nuroomi.domain.user;
+package com.likelion.daroomi.nuroomi.domain;
 
-import com.likelion.daroomi.nuroomi.domain.Address;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;

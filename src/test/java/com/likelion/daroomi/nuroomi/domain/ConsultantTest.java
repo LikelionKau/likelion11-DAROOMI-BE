@@ -2,7 +2,6 @@ package com.likelion.daroomi.nuroomi.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;

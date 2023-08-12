@@ -1,9 +1,5 @@
-package com.likelion.daroomi.nuroomi.domain.user;
+package com.likelion.daroomi.nuroomi.domain;
 
-import com.likelion.daroomi.nuroomi.domain.Application;
-import com.likelion.daroomi.nuroomi.domain.Consulting;
-import com.likelion.daroomi.nuroomi.domain.detail.LikeDetail;
-import com.likelion.daroomi.nuroomi.domain.detail.PointUseDetail;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

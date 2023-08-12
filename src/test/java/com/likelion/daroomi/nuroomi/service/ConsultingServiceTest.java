@@ -3,8 +3,8 @@ package com.likelion.daroomi.nuroomi.service;
 import static org.assertj.core.api.Assertions.*;
 
 import com.likelion.daroomi.nuroomi.domain.Consulting;
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
-import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
+import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.Consultantee;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultanteeRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultingRepository;
