@@ -1,7 +1,8 @@
-package com.likelion.daroomi.nuroomi.domain.detail;
+package com.likelion.daroomi.nuroomi.domain;
 
 import com.likelion.daroomi.nuroomi.domain.Options;
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
+import com.likelion.daroomi.nuroomi.domain.Consultant;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,15 +16,23 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "point_use_detail")
 public class PointUseDetail {
 
     @Id
     @Column(name = "point_use_detail_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -38,7 +47,7 @@ public class PointUseDetail {
     @NotNull
     private Timestamp createTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "consultant_id")
     private Consultant consultant;
 }
