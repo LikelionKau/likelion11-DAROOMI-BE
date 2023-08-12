@@ -16,10 +16,13 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalTime;
+import lombok.Getter;
 
 @Entity
 @Table(name = "consulting")
+@Getter
 public class Consulting {
 
     @Id
@@ -30,10 +33,10 @@ public class Consulting {
     @NotNull
     private Timestamp createdTime;
 
-    @NotNull
+    //@NotNull
     private LocalTime duration;
 
-    @NotNull
+    //@NotNull
     private String voiceUrl;
 
     private String videoUrl;
@@ -48,4 +51,38 @@ public class Consulting {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "consulting")
     private LikeDetail likeDetail;
+
+    public void setLikeDetail(LikeDetail likeDetail) {
+        this.likeDetail = likeDetail;
+    }
+
+    public static Consulting initConsulting(Consultant consultant, Consultantee consultantee) {
+        Consulting consulting = new Consulting();
+        consulting.consultant = consultant;
+        consulting.consultantee = consultantee;
+        consulting.createdTime = new Timestamp(System.currentTimeMillis());
+
+        return consulting;
+    }
+
+    public Consulting createConsulting(String voiceUrl, String videoUrl) {
+        this.duration = calculateDuration();
+        this.voiceUrl = voiceUrl;
+        if (videoUrl != null) {
+            this.videoUrl = videoUrl;
+        }
+
+        return this;
+    }
+
+    private LocalTime calculateDuration() {
+        Timestamp startTime = createdTime;
+        Timestamp endTime = new Timestamp(System.currentTimeMillis());
+
+        long timeGap = endTime.getTime() - startTime.getTime();
+        Duration duration = Duration.ofMillis(timeGap);
+
+        return LocalTime.ofSecondOfDay(duration.getSeconds());
+    }
+
 }

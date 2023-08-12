@@ -10,21 +10,27 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "consultant_id"))
+@Table(name = "consultant")
+@Getter
+@Setter
 public class Consultant extends AllUser {
-
 
     @NotNull
     private String profileImage;
 
     @NotNull
-    private Boolean isAccepted;
+    @ColumnDefault("false")
+    private Boolean isAccepted = false;
 
     @ColumnDefault("0")
     private Integer point = 0;

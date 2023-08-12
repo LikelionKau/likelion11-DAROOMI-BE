@@ -17,7 +17,7 @@ import jakarta.validation.constraints.NotNull;
 public class Application {
 
     @Id
-    @Column(name = "consultant_id")
+    @Column(name = "application_id")
     private Long id;
 
     @NotNull
