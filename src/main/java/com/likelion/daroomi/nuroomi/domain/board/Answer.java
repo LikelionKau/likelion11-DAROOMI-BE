@@ -32,13 +32,13 @@ public class Answer extends Board {
     @JoinColumn(name = "user_consultantee_id")
     private Consultantee consultantee;
 
-    // 대댓글을 위한 자기자신 연관관계
+    // 여러 개 answer가 하나의 parent를 가진다.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Answer parent;
 
+    // 하나의 answer에 대한 OTM
     @OneToMany(mappedBy = "parent")
-    private List<Answer> parent_id = new ArrayList<>();
-
+    private List<Answer> answers = new ArrayList<>();
 
 }
