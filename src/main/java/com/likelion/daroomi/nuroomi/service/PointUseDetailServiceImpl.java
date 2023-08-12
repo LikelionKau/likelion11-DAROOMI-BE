@@ -1,7 +1,7 @@
 package com.likelion.daroomi.nuroomi.service;
 
 import com.likelion.daroomi.nuroomi.domain.PointUseDetail;
-import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import com.likelion.daroomi.nuroomi.dto.GetPointDetailResponseDto;
 import com.likelion.daroomi.nuroomi.dto.GetPointResponseDto;
 import com.likelion.daroomi.nuroomi.dto.SendIdRequestDto;

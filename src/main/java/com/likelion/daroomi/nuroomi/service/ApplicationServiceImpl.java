@@ -1,7 +1,7 @@
 package com.likelion.daroomi.nuroomi.service;
 
 import com.likelion.daroomi.nuroomi.domain.Application;
-import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import com.likelion.daroomi.nuroomi.dto.GetApplicationResponseDto;
 import com.likelion.daroomi.nuroomi.dto.SendIdRequestDto;
 import com.likelion.daroomi.nuroomi.dto.SuccessResponseDto;

@@ -1,7 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
-import com.likelion.daroomi.nuroomi.domain.Consulting;
-import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

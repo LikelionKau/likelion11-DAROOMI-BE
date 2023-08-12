@@ -1,4 +1,4 @@
-package com.likelion.daroomi.nuroomi.domain;
+package com.likelion.daroomi.nuroomi.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

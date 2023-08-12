@@ -1,6 +1,6 @@
 package com.likelion.daroomi.nuroomi.repository;
 
-import com.likelion.daroomi.nuroomi.domain.Consultantee;
+import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
