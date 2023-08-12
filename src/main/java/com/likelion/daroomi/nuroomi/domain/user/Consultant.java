@@ -1,7 +1,9 @@
 package com.likelion.daroomi.nuroomi.domain.user;
 
+import com.likelion.daroomi.nuroomi.domain.board.Answer;
 import com.likelion.daroomi.nuroomi.domain.Application;
 import com.likelion.daroomi.nuroomi.domain.Consulting;
+import com.likelion.daroomi.nuroomi.domain.board.Question;
 import com.likelion.daroomi.nuroomi.domain.detail.LikeDetail;
 import com.likelion.daroomi.nuroomi.domain.detail.PointUseDetail;
 import jakarta.persistence.AttributeOverride;
@@ -46,5 +48,12 @@ public class Consultant extends AllUser {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultant")
     private List<LikeDetail> likeDetails = new ArrayList<>();
+
+    @OneToMany(mappedBy = "consultant")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "consultant")
+    private List<Answer> answers = new ArrayList<>();
+
 
 }
