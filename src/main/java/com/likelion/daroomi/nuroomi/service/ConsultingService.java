@@ -8,6 +8,7 @@ import com.likelion.daroomi.nuroomi.service.WaitingList.Participants;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class ConsultingService {
     private final ConsultingRepository consultingRepository;
     private final WaitingList waitingList;
 
+    @Transactional
     public Long startConsulting(Long consultantId) {
 
         Participants participants = waitingList.getParticipants(consultantId);
@@ -28,6 +30,7 @@ public class ConsultingService {
         return consulting.getId();
     }
 
+    @Transactional
     public Long endConsulting(Long consultingId, String voiceUrl, String videoUrl) {
         Optional<Consulting> baseConsulting = consultingRepository.findById(consultingId);
         Consulting consulting = baseConsulting.get().createConsulting(voiceUrl, videoUrl);

@@ -2,6 +2,7 @@ package com.likelion.daroomi.nuroomi.domain.detail;
 
 import com.likelion.daroomi.nuroomi.domain.Consulting;
 import com.likelion.daroomi.nuroomi.domain.user.Consultant;
+import com.likelion.daroomi.nuroomi.dto.LikeDetailDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,10 +12,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "like_detail")
+@Getter
 public class LikeDetail {
 
     @Id
@@ -22,10 +25,10 @@ public class LikeDetail {
     private Long id;
 
     @ColumnDefault("false")
-    private Boolean likes;
+    private Boolean likes = false;
 
     @ColumnDefault("false")
-    private Boolean dislikes;
+    private Boolean dislikes = false;
 
     @Column(length = 50)
     //todo enum or various?
@@ -49,5 +52,11 @@ public class LikeDetail {
     public void setConsulting(Consulting consulting) {
         this.consulting = consulting;
         consulting.setLikeDetail(this);
+    }
+
+    public void setLikeOrDislike(LikeDetailDto likeDetailDto) {
+        this.likes = likeDetailDto.getLikes();
+        this.dislikes = likeDetailDto.getDislikes();
+        this.reason = likeDetailDto.getReason();
     }
 }
