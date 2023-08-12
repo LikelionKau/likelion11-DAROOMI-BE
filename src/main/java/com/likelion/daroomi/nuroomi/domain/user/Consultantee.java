@@ -1,9 +1,12 @@
 package com.likelion.daroomi.nuroomi.domain.user;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.likelion.daroomi.nuroomi.domain.AllUser;
+import com.likelion.daroomi.nuroomi.domain.board.Answer;
 import com.likelion.daroomi.nuroomi.domain.Consulting;
+import com.likelion.daroomi.nuroomi.domain.board.Question;
 import com.likelion.daroomi.nuroomi.domain.Role;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
@@ -32,4 +35,10 @@ public class Consultantee extends AllUser {
     @OneToMany(mappedBy = "consultantee")
     @JsonIgnore
     private List<Consulting> consultings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "consultantee")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "consultantee")
+    private List<Answer> answers = new ArrayList<>();
 }

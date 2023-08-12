@@ -8,6 +8,12 @@ import com.likelion.daroomi.nuroomi.domain.Consulting;
 import com.likelion.daroomi.nuroomi.domain.LikeDetail;
 import com.likelion.daroomi.nuroomi.domain.PointUseDetail;
 import com.likelion.daroomi.nuroomi.exception.NegativeTotalPointException;
+import com.likelion.daroomi.nuroomi.domain.board.Answer;
+import com.likelion.daroomi.nuroomi.domain.Application;
+import com.likelion.daroomi.nuroomi.domain.Consulting;
+import com.likelion.daroomi.nuroomi.domain.board.Question;
+import com.likelion.daroomi.nuroomi.domain.detail.LikeDetail;
+import com.likelion.daroomi.nuroomi.domain.detail.PointUseDetail;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -57,6 +63,7 @@ public class Consultant extends AllUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultant")
     private List<LikeDetail> likeDetails = new ArrayList<>();
 
+
     public void modifyInfo(String profileImage, Address address, String phoneNumber,
         String email, String bankCompany, String bankAccount) {
         this.profileImage = profileImage;
@@ -72,4 +79,10 @@ public class Consultant extends AllUser {
         }
         this.point = newTotalPoint;
     }
+
+    @OneToMany(mappedBy = "consultant")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "consultant")
+    private List<Answer> answers = new ArrayList<>();
 }
