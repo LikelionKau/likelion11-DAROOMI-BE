@@ -2,6 +2,7 @@ package com.likelion.daroomi.nuroomi.service;
 
 import com.likelion.daroomi.nuroomi.domain.Consultant;
 import com.likelion.daroomi.nuroomi.domain.Consultantee;
+import com.likelion.daroomi.nuroomi.dto.consulting.JoinWaitingListDto;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultanteeRepository;
 import java.util.LinkedHashMap;
@@ -23,17 +24,19 @@ public class WaitingList {
     private final LinkedHashMap<Long, Consultant> consultantList = new LinkedHashMap<>();
     private final LinkedList<Long> consultanteeList = new LinkedList<>();
 
-    public void joinWaitingList(Long userId, boolean isConsultant) {
+    public void joinWaitingList(JoinWaitingListDto joinWaitingListDto) {
 
-        if (isConsultant) {
+        Long userId = joinWaitingListDto.getUserId();
+
+        if (joinWaitingListDto.getIsConsultant()) {
             consultantList.put(userId, consultantRepository.findById(userId).get());
         } else {
             consultanteeList.add(userId);
         }
     }
 
+    //todo 필요한가?
     public void quitWaitingList(Long userId, boolean isConsultant) {
-
         if (!isConsultant) {
             for (int i = 0; i < consultanteeList.size(); i++) {
                 if (Objects.equals(consultanteeList.get(i), userId)) {

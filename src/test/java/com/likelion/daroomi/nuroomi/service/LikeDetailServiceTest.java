@@ -6,7 +6,10 @@ import com.likelion.daroomi.nuroomi.domain.Consulting;
 import com.likelion.daroomi.nuroomi.domain.LikeDetail;
 import com.likelion.daroomi.nuroomi.domain.Consultant;
 import com.likelion.daroomi.nuroomi.domain.Consultantee;
-import com.likelion.daroomi.nuroomi.dto.LikeDetailDto;
+import com.likelion.daroomi.nuroomi.dto.consulting.EndConsultingDto;
+import com.likelion.daroomi.nuroomi.dto.consulting.JoinWaitingListDto;
+import com.likelion.daroomi.nuroomi.dto.consulting.LikeDetailDto;
+import com.likelion.daroomi.nuroomi.dto.consulting.StartConsultingDto;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultanteeRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultingRepository;
@@ -24,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class LikeDetailServiceTest {
 
-    Logger log = LoggerFactory.getLogger(ConsultingServiceTest.class);
 
     @Autowired
     ConsultantRepository consultantRepository;
@@ -43,22 +45,17 @@ class LikeDetailServiceTest {
 
     @BeforeEach()
     void tempData() {
-        Consultant consultant1 = new Consultant();
-        consultant1.setLoginId("consultant1Id");
-        consultant1.setPassword("consultant1Pw");
-        consultant1.setProfileImage("consultant1Profile");
 
-        Consultant consultant2 = new Consultant();
-        consultant2.setLoginId("consultant2Id");
-        consultant2.setPassword("consultant2Pw");
-        consultant2.setProfileImage("consultant2Profile");
+        Consultant consultant1 = new Consultant("consultant1Id", "consultant1Pw",
+            "consultant1Profile", true);
+        Consultant consultant2 = new Consultant("consultant2Id", "consultant2Pw",
+            "consultant2Profile", true);
 
         consultantRepository.save(consultant1);
         consultantRepository.save(consultant2);
 
-        Consultantee consultantee = new Consultantee();
-        consultantee.setLoginId("consultanteeId");
-        consultantee.setPassword("consultanteePw");
+        Consultantee consultantee = new Consultantee("consultanteeId", "consultanteePw");
+
         consultanteeRepository.save(consultantee);
     }
 
@@ -67,26 +64,30 @@ class LikeDetailServiceTest {
     public void createLikeDetailTest() throws Exception {
         //given
         Consulting consulting = matching();
-        LikeDetailDto likeDetailDto = new LikeDetailDto();
-        likeDetailDto.setDislikes(true);
-        likeDetailDto.setReason("I hate you!");
+        System.out.println("consulting = " + consulting);
+        LikeDetailDto likeDetailDto = new LikeDetailDto(false, true, "Hate U");
 
         //when
         Long likeDetailId = likeDetailService.createLikeDetail(consulting.getId(), likeDetailDto);
+        System.out.println("likeDetailId = " + likeDetailId);
         LikeDetail findLikeDetail = likeDetailRepository.findById(likeDetailId).get();
 
         //then
         assertThat(findLikeDetail.getConsultant().getId()).isEqualTo(1L);
         assertThat(findLikeDetail.getConsulting().getId()).isEqualTo(consulting.getId());
-        assertThat(findLikeDetail.getReason()).isEqualTo("I hate you!");
+        assertThat(findLikeDetail.getReason()).isEqualTo("Hate U");
     }
 
     private Consulting matching() {
-        waitingList.joinWaitingList(1L, true);
-        waitingList.joinWaitingList(1L, false);
 
-        Long startId = consultingService.startConsulting(1L);
-        Long endId = consultingService.endConsulting(startId, "voice", null);
+        waitingList.joinWaitingList(new JoinWaitingListDto(1L, true));
+        waitingList.joinWaitingList(new JoinWaitingListDto(1L, false));
+
+        StartConsultingDto startConsultingDto = consultingService.startConsulting(1L);
+
+        EndConsultingDto endConsultingDto = new EndConsultingDto(
+            startConsultingDto.getConsultingId(), "voice", null);
+        Long endId = consultingService.endConsulting(endConsultingDto);
 
         return consultingRepository.findById(endId).get();
     }

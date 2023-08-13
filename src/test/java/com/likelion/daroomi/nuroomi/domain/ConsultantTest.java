@@ -20,10 +20,7 @@ public class ConsultantTest {
     @DisplayName("consultant 속성 조회")
     public void consultantTest() throws Exception {
         //given
-        Consultant consultant = new Consultant();
-        consultant.setLoginId("1234");
-        consultant.setPassword("123");
-        consultant.setProfileImage("profile");
+        Consultant consultant = new Consultant("1234", "123", "profile", true);
 
         Consultant savedConsultant = consultantRepository.save(consultant);
 

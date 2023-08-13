@@ -9,10 +9,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "consultantee")
 @AttributeOverride(name = "id", column = @Column(name = "consultantee_id"))
+@NoArgsConstructor
 public class Consultantee extends AllUser {
 
     @Enumerated(EnumType.STRING)
@@ -21,4 +23,8 @@ public class Consultantee extends AllUser {
 
     @OneToMany(mappedBy = "consultantee")
     private List<Consulting> consultings = new ArrayList<>();
+
+    public Consultantee(String loginId, String password) {
+        this.setUser(loginId, password);
+    }
 }

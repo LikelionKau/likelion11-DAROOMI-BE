@@ -1,5 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
+import com.likelion.daroomi.nuroomi.dto.consulting.EndConsultingDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -62,11 +63,11 @@ public class Consulting {
         return consulting;
     }
 
-    public Consulting createConsulting(String voiceUrl, String videoUrl) {
+    public Consulting createConsulting(EndConsultingDto consultingDto) {
         this.duration = calculateDuration();
-        this.voiceUrl = voiceUrl;
+        this.voiceUrl = consultingDto.getVoiceUrl();
         if (videoUrl != null) {
-            this.videoUrl = videoUrl;
+            this.videoUrl = consultingDto.getVideoUrl();
         }
 
         return this;
@@ -82,4 +83,10 @@ public class Consulting {
         return LocalTime.ofSecondOfDay(duration.getSeconds());
     }
 
+    @Override
+    public String toString() {
+        return "Consulting{" + "id=" + id + ", createdTime=" + createdTime
+            + ", duration=" + duration + ", voiceUrl='" + voiceUrl + '\''
+            + ", videoUrl='" + videoUrl + '\'' + '}';
+    }
 }

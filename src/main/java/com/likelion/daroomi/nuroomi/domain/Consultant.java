@@ -11,14 +11,14 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "consultant_id"))
 @Table(name = "consultant")
+@NoArgsConstructor
 @Getter
-@Setter
 public class Consultant extends AllUser {
 
     @NotNull
@@ -27,6 +27,12 @@ public class Consultant extends AllUser {
     @NotNull
     @ColumnDefault("false")
     private Boolean isAccepted = false;
+
+    public Consultant(String loginId, String password, String profileImage, Boolean isAccepted) {
+        this.setUser(loginId, password);
+        this.profileImage = profileImage;
+        this.isAccepted = isAccepted;
+    }
 
     @ColumnDefault("0")
     private Integer point = 0;
@@ -49,4 +55,7 @@ public class Consultant extends AllUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultant")
     private List<LikeDetail> likeDetails = new ArrayList<>();
 
+    public void addPoint(int addPoint) {
+        this.point += addPoint;
+    }
 }

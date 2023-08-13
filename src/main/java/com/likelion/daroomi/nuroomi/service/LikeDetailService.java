@@ -3,7 +3,7 @@ package com.likelion.daroomi.nuroomi.service;
 import com.likelion.daroomi.nuroomi.domain.Consulting;
 import com.likelion.daroomi.nuroomi.domain.LikeDetail;
 import com.likelion.daroomi.nuroomi.domain.Consultant;
-import com.likelion.daroomi.nuroomi.dto.LikeDetailDto;
+import com.likelion.daroomi.nuroomi.dto.consulting.LikeDetailDto;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultingRepository;
 import com.likelion.daroomi.nuroomi.repository.LikeDetailRepository;
@@ -24,6 +24,7 @@ public class LikeDetailService {
         LikeDetail likeDetail = new LikeDetail();
 
         Optional<Consulting> consulting = consultingRepository.findById(consultingId);
+
         Long consultantId = consulting.get().getConsultant().getId();
         Optional<Consultant> consultant = consultantRepository.findById(consultantId);
 
@@ -31,8 +32,6 @@ public class LikeDetailService {
         likeDetail.setConsulting(consulting.get());
         likeDetail.setLikeOrDislike(likeDetailDto);
 
-        likeDetailRepository.save(likeDetail);
-
-        return likeDetail.getId();
+        return likeDetailRepository.save(likeDetail).getId();
     }
 }

@@ -3,6 +3,7 @@ package com.likelion.daroomi.nuroomi.service;
 
 import com.likelion.daroomi.nuroomi.domain.Consultant;
 import com.likelion.daroomi.nuroomi.domain.Consultantee;
+import com.likelion.daroomi.nuroomi.dto.consulting.JoinWaitingListDto;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultanteeRepository;
 import com.likelion.daroomi.nuroomi.repository.ConsultingRepository;
@@ -29,22 +30,17 @@ class WaitingListTest {
 
     @BeforeEach()
     void tempData() {
-        Consultant consultant1 = new Consultant();
-        consultant1.setLoginId("consultant1Id");
-        consultant1.setPassword("consultant1Pw");
-        consultant1.setProfileImage("consultant1Profile");
 
-        Consultant consultant2 = new Consultant();
-        consultant2.setLoginId("consultant2Id");
-        consultant2.setPassword("consultant2Pw");
-        consultant2.setProfileImage("consultant2Profile");
+        Consultant consultant1 = new Consultant("consultant1Id", "consultant1Pw",
+            "consultant1Profile", true);
+        Consultant consultant2 = new Consultant("consultant2Id", "consultant2Pw",
+            "consultant2Profile", true);
 
         consultantRepository.save(consultant1);
         consultantRepository.save(consultant2);
 
-        Consultantee consultantee = new Consultantee();
-        consultantee.setLoginId("consultanteeId");
-        consultantee.setPassword("consultanteePw");
+        Consultantee consultantee = new Consultantee("consultanteeId", "consultanteePw");
+
         consultanteeRepository.save(consultantee);
     }
 
@@ -53,8 +49,9 @@ class WaitingListTest {
     public void matching() throws Exception {
 
         //given
-        waitingList.joinWaitingList(1L, true);
-        waitingList.joinWaitingList(1L, false);
+        waitingList.joinWaitingList(new JoinWaitingListDto(1L, true));
+        waitingList.joinWaitingList(new JoinWaitingListDto(1L, false));
+
 
         //when
         waitingList.quitWaitingList(2L, true);
