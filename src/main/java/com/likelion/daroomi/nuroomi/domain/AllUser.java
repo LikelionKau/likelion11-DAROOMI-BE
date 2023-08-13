@@ -1,6 +1,8 @@
-package com.likelion.daroomi.nuroomi.domain.user;
+package com.likelion.daroomi.nuroomi.domain;
 
 import com.likelion.daroomi.nuroomi.domain.Address;
+import com.likelion.daroomi.nuroomi.dto.ChangePasswordRequestDto;
+import com.likelion.daroomi.nuroomi.dto.LoginRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
@@ -8,12 +10,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
+@Getter
 public abstract class AllUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -38,5 +43,15 @@ public abstract class AllUser {
 
     @Embedded
     private Address address;
+
+    public void modifyInfo(Address address, String phoneNumber, String email) {
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public void modifyPassword(ChangePasswordRequestDto changePasswordRequestDto) {
+        this.password = changePasswordRequestDto.getPassword();
+    }
 }
 
