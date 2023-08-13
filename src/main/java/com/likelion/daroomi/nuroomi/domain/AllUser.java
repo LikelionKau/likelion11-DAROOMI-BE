@@ -1,5 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
+import com.likelion.daroomi.nuroomi.domain.Address;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 public abstract class AllUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -46,5 +47,14 @@ public abstract class AllUser {
 
     @Embedded
     private Address address;
+
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public void modifyPassword(ChangePasswordRequestDto changePasswordRequestDto) {
+        this.password = changePasswordRequestDto.getPassword();
+    }
 }
 

@@ -1,6 +1,8 @@
 package com.likelion.daroomi.nuroomi.domain;
 
 import com.likelion.daroomi.nuroomi.dto.consulting.EndConsultingDto;
+import com.likelion.daroomi.nuroomi.domain.user.Consultant;
+import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,5 +1,8 @@
 package com.likelion.daroomi.nuroomi.domain;
 
+
+import com.likelion.daroomi.nuroomi.domain.user.Consultant;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,8 +13,11 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
 @Table(name = "application")
 public class Application {
 
@@ -35,8 +41,13 @@ public class Application {
     private String question3;
 
     @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "consultant_id")
     private Consultant consultant;
 
+    public void modifyInfo(String question1, String question2, String question3) {
+        this.question1 = question1;
+        this.question2 = question2;
+        this.question3 = question3;
+    }
 }
