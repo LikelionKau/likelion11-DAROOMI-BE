@@ -8,19 +8,32 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public abstract class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Timestamp createdDate;
+    @NotNull Timestamp createdDate;
 
     @NotNull
     @Lob
-    private String content;
+    String content;
 
+    public void setBoard(Timestamp createdDate, String content) {
+        this.createdDate = createdDate;
+        this.content = content;
+    }
 }

@@ -12,9 +12,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "answer_id"))
+@Getter
 public class Answer extends Board {
 
     @NotNull
