@@ -9,6 +9,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
 @SuperBuilder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public abstract class Board {
