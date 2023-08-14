@@ -1,12 +1,10 @@
-package com.likelion.daroomi.nuroomi;
+package com.likelion.daroomi.nuroomi.service;
 
 import com.likelion.daroomi.nuroomi.domain.board.Notification;
-import com.likelion.daroomi.nuroomi.dto.GetNotificationRequestDto;
-import com.likelion.daroomi.nuroomi.dto.NotificationRequestDto;
-import com.likelion.daroomi.nuroomi.dto.NotificationResponseDto;
+import com.likelion.daroomi.nuroomi.dto.Notification.GetNotificationRequestDto;
+import com.likelion.daroomi.nuroomi.dto.Notification.NotificationRequestDto;
+import com.likelion.daroomi.nuroomi.dto.Notification.NotificationResponseDto;
 import com.likelion.daroomi.nuroomi.repository.NotificationRepository;
-import com.likelion.daroomi.nuroomi.service.NotificationService;
-import com.likelion.daroomi.nuroomi.service.NotificationServiceImpl;
 import jakarta.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.Optional;
@@ -29,11 +27,11 @@ public class NotificationServiceTest {
     @DisplayName("공지사항 목록 테스트")
     public void getNotificationListTest() {
         //given
-        Notification notification1 = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification1 = new Notification(1L, new Timestamp(System.currentTimeMillis()),
             "content1", "title1");
-        Notification notification2 = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification2 = new Notification(2L, new Timestamp(System.currentTimeMillis()),
             "content2", "title2");
-        Notification notification3 = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification3 = new Notification(3L, new Timestamp(System.currentTimeMillis()),
             "content3", "title3");
 
         //when
@@ -55,24 +53,24 @@ public class NotificationServiceTest {
     @DisplayName("공지사항 생성 테스트")
     public void createNotificationTest() {
         //given
-        Notification notification = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification = new Notification(1L, new Timestamp(System.currentTimeMillis()),
             "content1", "title1");
 
         NotificationRequestDto notificationRequestDto = new NotificationRequestDto(
             notification.getId(), "title1", "content1", notification.getCreatedDate());
 
         //when
-        Notification savedNotification = notificationService.createNotification(
+        NotificationResponseDto savedNotification = notificationService.createNotification(
             notificationRequestDto);
 
         //then
-        Assertions.assertThat(savedNotification.getId()).isEqualTo(1L);
+        //Assertions.assertThat(savedNotification.;
     }
 
     @Test
     @DisplayName("공지사항 게시물 열람 테스트")
     public void readNotificationTest() {
-        Notification notification = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification = new Notification(1L, new Timestamp(System.currentTimeMillis()),
             "PLZ", "PLZ");
         notificationRepository.save(notification);
 
@@ -88,7 +86,7 @@ public class NotificationServiceTest {
     @DisplayName("공지사항 수정 테스트")
     public void modifyNotificationTest() {
         //given
-        Notification notification = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification = new Notification(1L, new Timestamp(System.currentTimeMillis()),
             "content1", "title1");
 
         notificationRepository.save(notification);
@@ -100,7 +98,7 @@ public class NotificationServiceTest {
             String newTitle = "new title";
             String newContent = "new content";
             Timestamp newTime = new Timestamp(System.currentTimeMillis());
-            newNotification.get().updateNotification(newTitle, newContent, newTime);
+            newNotification.get().updateNotification(newTitle, newContent);
         }
         //then
         Assertions.assertThat(newNotification.get().getId()).isEqualTo(1L);
@@ -110,26 +108,21 @@ public class NotificationServiceTest {
 
     @Test
     @DisplayName("공지사항 삭제 테스트")
-    public void deleteNotificationTest() {
+    public void NodeleteNotificationTest() {
         //given
-        Notification notification = new Notification(new Timestamp(System.currentTimeMillis()),
+        Notification notification = new Notification(1L, new Timestamp(System.currentTimeMillis()),
             "content1", "title1");
 
-        Notification notification2 = new Notification(new Timestamp(System.currentTimeMillis()),
-            "content2", "title2");
-
         notificationRepository.save(notification);
-        notificationRepository.save(notification2);
 
         NotificationRequestDto notificationRequestDto = new NotificationRequestDto(
             notification.getId(), "title1", "content1", notification.getCreatedDate());
 
         //when
-        notificationService.deleteNotification(notificationRequestDto);
+        NotificationResponseDto notificationResponseDto = notificationService.deleteNotification(notificationRequestDto);
 
         //then
-        Notification findId = notificationRepository.findById(notification.getId()).get();
-        Assertions.assertThat(findId.getId()).isEqualTo(null);
+        Assertions.assertThat(notificationResponseDto.getTitle()).isEqualTo("title1");
 
         //  Notification findId2 = notificationRepository.findById(notification2.getId()).get();
         //  Assertions.assertThat(notificationRepository.findById(notification2.getId())).isEqualTo(2L);

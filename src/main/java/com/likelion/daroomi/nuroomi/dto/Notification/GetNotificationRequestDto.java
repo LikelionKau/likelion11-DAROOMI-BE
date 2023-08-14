@@ -1,4 +1,4 @@
-package com.likelion.daroomi.nuroomi.dto;
+package com.likelion.daroomi.nuroomi.dto.Notification;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
