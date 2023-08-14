@@ -1,5 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
+
 import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

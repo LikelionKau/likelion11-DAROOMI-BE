@@ -1,5 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
+
 import com.likelion.daroomi.nuroomi.domain.Address;
 import com.likelion.daroomi.nuroomi.dto.ChangePasswordRequestDto;
 import com.likelion.daroomi.nuroomi.dto.LoginRequestDto;
@@ -11,9 +12,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @MappedSuperclass
+@NoArgsConstructor
 @Getter
 public abstract class AllUser {
 
@@ -28,6 +30,11 @@ public abstract class AllUser {
     @NotNull
     @Column(length = 50)
     private String password;
+
+    public void setUser(String loginId, String password) {
+        this.loginId = loginId;
+        this.password = password;
+    }
 
     @Column(length = 50)
     private String email;
