@@ -24,15 +24,16 @@ public class Notification extends Board {
     @Column(length = 50)
     private String title;
 
-    public Notification(Timestamp createdTime, String content, String title) {
+    public Notification(Long id, Timestamp createdTime, String content, String title) {
         this.setBoard(createdTime, content);
         this.title = title;
     }
 
-    public void updateNotification(String title, String content, Timestamp createdDate) {
+    public void updateNotification(String title, String content) {
         this.title = title;
         this.content = content;
-        this.createdDate = createdDate;
+        this.createdDate = new Timestamp(System.currentTimeMillis());
+        // this.createdDate = createdDate;
     }
 
 }

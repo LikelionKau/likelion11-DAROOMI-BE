@@ -1,7 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
 
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +18,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Table(name = "application")
+@Setter
 public class Application {
 
     @Id

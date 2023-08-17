@@ -1,7 +1,7 @@
 package com.likelion.daroomi.nuroomi.domain.board;
 
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
-import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
+import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.Consultantee;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

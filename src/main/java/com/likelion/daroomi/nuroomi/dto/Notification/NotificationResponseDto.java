@@ -1,14 +1,15 @@
-package com.likelion.daroomi.nuroomi.dto;
+package com.likelion.daroomi.nuroomi.dto.Notification;
 
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class NotificationRequestDto {
+@Builder
+public class NotificationResponseDto {
 
-    private Long id;
     private String title;
     private String content;
     private Timestamp createdDate;

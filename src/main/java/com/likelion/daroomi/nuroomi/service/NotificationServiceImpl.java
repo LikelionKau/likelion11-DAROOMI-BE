@@ -1,11 +1,12 @@
 package com.likelion.daroomi.nuroomi.service;
 
 import com.likelion.daroomi.nuroomi.domain.board.Notification;
-import com.likelion.daroomi.nuroomi.dto.GetNotificationRequestDto;
-import com.likelion.daroomi.nuroomi.dto.NotificationRequestDto;
-import com.likelion.daroomi.nuroomi.dto.NotificationResponseDto;
+import com.likelion.daroomi.nuroomi.dto.Notification.GetNotificationRequestDto;
+import com.likelion.daroomi.nuroomi.dto.Notification.NotificationRequestDto;
+import com.likelion.daroomi.nuroomi.dto.Notification.NotificationResponseDto;
 import com.likelion.daroomi.nuroomi.repository.NotificationRepository;
 import jakarta.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,17 +52,22 @@ public class NotificationServiceImpl implements NotificationService {
     // 공지사항 작성
     @Override
     @Transactional
-    public Notification createNotification(
+    public NotificationResponseDto createNotification(
         NotificationRequestDto notificationRequestDto) {
+
         Notification newNotification = Notification.builder()
             .title(notificationRequestDto.getTitle())
             .content(notificationRequestDto.getContent())
-            .createdDate(notificationRequestDto.getCreatedDate())
+            .createdDate(new Timestamp(System.currentTimeMillis()))
             .build();
 
         Notification notification = notificationRepository.save(newNotification);
 
-        return notification;
+        return NotificationResponseDto.builder()
+            .title(notification.getTitle())
+            .content(notification.getContent())
+            .createdDate(notification.getCreatedDate())
+            .build();
     }
 
     // 공지사항 게시물 열람
@@ -91,29 +97,36 @@ public class NotificationServiceImpl implements NotificationService {
 
             notification.updateNotification(
                 notificationRequestDto.getTitle(),
-                notificationRequestDto.getContent(),
-                notificationRequestDto.getCreatedDate());
+                notificationRequestDto.getContent());
 
             Notification updatedNotification = notificationRepository.save(notification);
 
             return NotificationResponseDto.builder()
                 .title(updatedNotification.getTitle())
                 .content(updatedNotification.getContent())
-                .createdDate(updatedNotification.getCreatedDate())
+                .createdDate(new Timestamp(System.currentTimeMillis()))
                 .build();
         } else {
             throw new RuntimeException();
         }
     }
 
-    public void deleteNotification(NotificationRequestDto notificationRequestDto) {
+    public NotificationResponseDto deleteNotification(NotificationRequestDto notificationRequestDto) {
         Optional<Notification> optionalNotification = notificationRepository.findById(
             notificationRequestDto.getId());
 
         if (optionalNotification.isPresent()) {
             Notification notification = optionalNotification.get();
-            notificationRepository.delete(notification);
+            notificationRepository.delgiete(notification);
+
+            return NotificationResponseDto.builder()
+                .title(notification.getTitle())
+                .content(notification.getContent())
+                .createdDate(notification.getCreatedDate())
+                .build();
+
         }
+        return null;
     }
 
 }
