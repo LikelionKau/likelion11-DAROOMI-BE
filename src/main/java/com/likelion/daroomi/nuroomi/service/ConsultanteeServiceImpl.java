@@ -14,6 +14,7 @@ import com.likelion.daroomi.nuroomi.exception.UserNotFoundException;
 import com.likelion.daroomi.nuroomi.repository.ConsultanteeRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class ConsultanteeServiceImpl implements ConsultanteeService {
 
     private final ConsultanteeRepository consultanteeRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ConsultanteeServiceImpl(ConsultanteeRepository consultanteeRepository) {
+    public ConsultanteeServiceImpl(ConsultanteeRepository consultanteeRepository,
+        PasswordEncoder passwordEncoder) {
         this.consultanteeRepository = consultanteeRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -37,12 +41,16 @@ public class ConsultanteeServiceImpl implements ConsultanteeService {
     @Override
     @Transactional
     public LoginConsultanteeResponseDto loginUser(LoginRequestDto loginRequestDto) {
-        Optional<Consultantee> optionalConsultant = consultanteeRepository.findByLoginIdAndPassword(
-            loginRequestDto.getLoginId(),
-            loginRequestDto.getPassword());
+        Optional<Consultantee> optionalConsultant = consultanteeRepository.findByLoginId(
+            loginRequestDto.getLoginId());
         if (optionalConsultant.isPresent()) {
             Consultantee consultantee = optionalConsultant.get();
-            return makeLoginConsultanteeResponseDto(consultantee);
+            if (passwordEncoder.matches(loginRequestDto.getPassword(),
+                consultantee.getPassword())) {
+                return makeLoginConsultanteeResponseDto(consultantee);
+            } else {
+                throw new RuntimeException("비밀번호 틀림");
+            }
         } else {
             throw new UserNotFoundException();
         }

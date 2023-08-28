@@ -1,6 +1,7 @@
 package com.likelion.daroomi.nuroomi.dto;
 
 import com.likelion.daroomi.nuroomi.domain.Address;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

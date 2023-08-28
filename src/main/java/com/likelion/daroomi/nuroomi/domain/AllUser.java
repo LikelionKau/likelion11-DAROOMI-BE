@@ -26,7 +26,7 @@ public abstract class AllUser {
     private String loginId;
 
     @NotNull
-    @Column(length = 50)
+    @Column(length = 254)
     private String password;
 
     @Column(length = 50)
@@ -52,6 +52,10 @@ public abstract class AllUser {
 
     public void modifyPassword(ChangePasswordRequestDto changePasswordRequestDto) {
         this.password = changePasswordRequestDto.getPassword();
+    }
+
+    public void encodingPassword(String password) {
+        this.password = password;
     }
 }
 

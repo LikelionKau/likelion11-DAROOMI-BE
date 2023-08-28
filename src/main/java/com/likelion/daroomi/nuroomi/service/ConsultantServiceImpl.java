@@ -13,6 +13,7 @@ import com.likelion.daroomi.nuroomi.exception.UserNotFoundException;
 import com.likelion.daroomi.nuroomi.repository.ConsultantRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +22,13 @@ public class ConsultantServiceImpl implements ConsultantService {
 
     private final ConsultantRepository consultantRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public ConsultantServiceImpl(ConsultantRepository consultantRepository) {
+    public ConsultantServiceImpl(ConsultantRepository consultantRepository,
+        PasswordEncoder passwordEncoder) {
         this.consultantRepository = consultantRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -36,12 +41,15 @@ public class ConsultantServiceImpl implements ConsultantService {
     @Override
     @Transactional
     public LoginConsultantResponseDto loginUser(LoginRequestDto loginRequestDto) {
-        Optional<Consultant> optionalConsultant = consultantRepository.findByLoginIdAndPassword(
-            loginRequestDto.getLoginId(),
-            loginRequestDto.getPassword());
+        Optional<Consultant> optionalConsultant = consultantRepository.findByLoginId(
+            loginRequestDto.getLoginId());
         if (optionalConsultant.isPresent()) {
             Consultant consultant = optionalConsultant.get();
-            return makeLoginConsultantResponseDto(consultant);
+            if (passwordEncoder.matches(loginRequestDto.getPassword(), consultant.getPassword())) {
+                return makeLoginConsultantResponseDto(consultant);
+            } else {
+                throw new RuntimeException("비밀번호 틀림");
+            }
         } else {
             throw new UserNotFoundException();
         }

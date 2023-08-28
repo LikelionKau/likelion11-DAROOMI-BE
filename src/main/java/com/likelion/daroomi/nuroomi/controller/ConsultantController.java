@@ -1,5 +1,6 @@
 package com.likelion.daroomi.nuroomi.controller;
 
+import com.likelion.daroomi.nuroomi.config.TokenUtils;
 import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import com.likelion.daroomi.nuroomi.dto.ChangePasswordRequestDto;
 import com.likelion.daroomi.nuroomi.dto.ConsultantInfoModifyRequestDto;
@@ -11,7 +12,15 @@ import com.likelion.daroomi.nuroomi.dto.SuccessOrFailResponseDto;
 import com.likelion.daroomi.nuroomi.dto.SuccessResponseDto;
 import com.likelion.daroomi.nuroomi.service.ConsultantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,14 +36,19 @@ public class ConsultantController {
 
     private final ConsultantService consultantService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public ConsultantController(ConsultantService consultantService) {
+    public ConsultantController(ConsultantService consultantService,
+        PasswordEncoder passwordEncoder) {
         this.consultantService = consultantService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/create")
     public ResponseEntity<SuccessOrFailResponseDto> createConsultant(
         @RequestBody Consultant consultant) {
+        consultant.encodingPassword(passwordEncoder.encode(consultant.getPassword()));
         SuccessResponseDto responseDto = consultantService.createUser(consultant);
         return makeText(responseDto);
     }
@@ -43,6 +57,8 @@ public class ConsultantController {
     public ResponseEntity<LoginConsultantResponseDto> loginUser(
         @RequestBody LoginRequestDto loginRequestDto) {
         LoginConsultantResponseDto findConsultant = consultantService.loginUser(loginRequestDto);
+        String resultToken = TokenUtils.generateJwtToken(loginRequestDto);
+        findConsultant.setToken(resultToken);
         return ResponseEntity.ok(findConsultant);
     }
 
@@ -65,6 +81,8 @@ public class ConsultantController {
     @PostMapping("/changePassword")
     public ResponseEntity<SuccessOrFailResponseDto> changePassword(
         @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
+        changePasswordRequestDto.setPassword(passwordEncoder.encode(
+            changePasswordRequestDto.getPassword()));
         SuccessResponseDto responseDto = consultantService.changePassword(changePasswordRequestDto);
         return makeText(responseDto);
     }
