@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ConsultanteeRepository extends JpaRepository<Consultantee, Long> {
 
     Optional<Consultantee> findByLoginIdAndPassword(String loginId, String password);
+
+    Optional<Consultantee> findByLoginId(String loginId);
 }

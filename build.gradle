@@ -29,8 +29,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
-
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
     runtimeOnly 'com.h2database:h2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+    implementation group: 'org.json', name: 'json', version: '20230227'
+    implementation 'org.springframework.session:spring-session-jdbc'
 }
 
 tasks.named('test') {

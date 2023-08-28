@@ -1,6 +1,6 @@
 package com.likelion.daroomi.nuroomi.controller;
 
-import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.user.Consultant;
 import com.likelion.daroomi.nuroomi.dto.ChangePasswordRequestDto;
 import com.likelion.daroomi.nuroomi.dto.ConsultantInfoModifyRequestDto;
 import com.likelion.daroomi.nuroomi.dto.GetUserNameResponseDto;

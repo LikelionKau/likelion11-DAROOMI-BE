@@ -4,10 +4,12 @@ import com.likelion.daroomi.nuroomi.domain.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
 @Builder
+@Setter
 public class LoginConsultantResponseDto {
 
     private Long id;
@@ -23,4 +25,5 @@ public class LoginConsultantResponseDto {
     private Integer point;
     private String bankCompany;
     private String bankAccount;
+    private String Token;
 }
