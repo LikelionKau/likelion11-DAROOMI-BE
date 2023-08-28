@@ -1,19 +1,9 @@
-package com.likelion.daroomi.nuroomi.domain.user;
+package com.likelion.daroomi.nuroomi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.likelion.daroomi.nuroomi.domain.Address;
-import com.likelion.daroomi.nuroomi.domain.AllUser;
-import com.likelion.daroomi.nuroomi.domain.Application;
-import com.likelion.daroomi.nuroomi.domain.Consulting;
-import com.likelion.daroomi.nuroomi.domain.LikeDetail;
-import com.likelion.daroomi.nuroomi.domain.PointUseDetail;
 import com.likelion.daroomi.nuroomi.exception.NegativeTotalPointException;
 import com.likelion.daroomi.nuroomi.domain.board.Answer;
-import com.likelion.daroomi.nuroomi.domain.Application;
-import com.likelion.daroomi.nuroomi.domain.Consulting;
 import com.likelion.daroomi.nuroomi.domain.board.Question;
-import com.likelion.daroomi.nuroomi.domain.LikeDetail;
-import com.likelion.daroomi.nuroomi.domain.PointUseDetail;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

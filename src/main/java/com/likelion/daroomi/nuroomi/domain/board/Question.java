@@ -1,8 +1,8 @@
 package com.likelion.daroomi.nuroomi.domain.board;
 
+import com.likelion.daroomi.nuroomi.domain.Consultant;
+import com.likelion.daroomi.nuroomi.domain.Consultantee;
 import com.likelion.daroomi.nuroomi.domain.board.Board;
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
-import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +13,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
+@SuperBuilder
+@NoArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "question_id"))
+@Getter
 public class Question extends Board {
 
     @NotNull

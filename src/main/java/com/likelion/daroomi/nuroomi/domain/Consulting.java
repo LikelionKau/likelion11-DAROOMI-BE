@@ -1,7 +1,6 @@
 package com.likelion.daroomi.nuroomi.domain;
 
-import com.likelion.daroomi.nuroomi.domain.user.Consultant;
-import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
+import com.likelion.daroomi.nuroomi.dto.consulting.EndConsultingDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,10 +14,13 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalTime;
+import lombok.Getter;
 
 @Entity
 @Table(name = "consulting")
+@Getter
 public class Consulting {
 
     @Id
@@ -29,10 +31,10 @@ public class Consulting {
     @NotNull
     private Timestamp createdTime;
 
-    @NotNull
+    //@NotNull
     private LocalTime duration;
 
-    @NotNull
+    //@NotNull
     private String voiceUrl;
 
     private String videoUrl;
@@ -47,4 +49,44 @@ public class Consulting {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "consulting")
     private LikeDetail likeDetail;
+
+    public void setLikeDetail(LikeDetail likeDetail) {
+        this.likeDetail = likeDetail;
+    }
+
+    public static Consulting initConsulting(Consultant consultant, Consultantee consultantee) {
+        Consulting consulting = new Consulting();
+        consulting.consultant = consultant;
+        consulting.consultantee = consultantee;
+        consulting.createdTime = new Timestamp(System.currentTimeMillis());
+
+        return consulting;
+    }
+
+    public Consulting createConsulting(EndConsultingDto consultingDto) {
+        this.duration = calculateDuration();
+        this.voiceUrl = consultingDto.getVoiceUrl();
+        if (videoUrl != null) {
+            this.videoUrl = consultingDto.getVideoUrl();
+        }
+
+        return this;
+    }
+
+    private LocalTime calculateDuration() {
+        Timestamp startTime = createdTime;
+        Timestamp endTime = new Timestamp(System.currentTimeMillis());
+
+        long timeGap = endTime.getTime() - startTime.getTime();
+        Duration duration = Duration.ofMillis(timeGap);
+
+        return LocalTime.ofSecondOfDay(duration.getSeconds());
+    }
+
+    @Override
+    public String toString() {
+        return "Consulting{" + "id=" + id + ", createdTime=" + createdTime
+            + ", duration=" + duration + ", voiceUrl='" + voiceUrl + '\''
+            + ", videoUrl='" + videoUrl + '\'' + '}';
+    }
 }

@@ -1,4 +1,4 @@
-package com.likelion.daroomi.nuroomi.domain.user;
+package com.likelion.daroomi.nuroomi.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -25,6 +26,7 @@ import lombok.ToString;
 @ToString
 @Table(name = "consultantee")
 @AttributeOverride(name = "id", column = @Column(name = "consultantee_id"))
+@NoArgsConstructor
 public class Consultantee extends AllUser {
 
     @Enumerated(EnumType.STRING)
@@ -36,6 +38,9 @@ public class Consultantee extends AllUser {
     @JsonIgnore
     private List<Consulting> consultings = new ArrayList<>();
 
+    public Consultantee(String loginId, String password) {
+        this.setUser(loginId, password);
+    }
     @OneToMany(mappedBy = "consultantee")
     private List<Question> questions = new ArrayList<>();
 
