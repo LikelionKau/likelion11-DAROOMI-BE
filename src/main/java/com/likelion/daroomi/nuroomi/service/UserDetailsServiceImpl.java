@@ -1,6 +1,6 @@
 package com.likelion.daroomi.nuroomi.service;
 
-import com.likelion.daroomi.nuroomi.domain.user.Consultantee;
+import com.likelion.daroomi.nuroomi.domain.Consultantee;
 import com.likelion.daroomi.nuroomi.repository.ConsultanteeRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

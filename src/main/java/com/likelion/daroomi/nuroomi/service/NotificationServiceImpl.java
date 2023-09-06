@@ -22,7 +22,7 @@ public class NotificationServiceImpl implements NotificationService {
     public NotificationServiceImpl(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
     }
-    
+
     // 공지사항 목록 조회
     @Override
     public List<NotificationResponseDto> getNotificationList() {
@@ -111,13 +111,14 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
-    public NotificationResponseDto deleteNotification(NotificationRequestDto notificationRequestDto) {
+    public NotificationResponseDto deleteNotification(
+        NotificationRequestDto notificationRequestDto) {
         Optional<Notification> optionalNotification = notificationRepository.findById(
             notificationRequestDto.getId());
 
         if (optionalNotification.isPresent()) {
             Notification notification = optionalNotification.get();
-            notificationRepository.delgiete(notification);
+            notificationRepository.delete(notification);
 
             return NotificationResponseDto.builder()
                 .title(notification.getTitle())

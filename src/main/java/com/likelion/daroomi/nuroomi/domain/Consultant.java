@@ -53,6 +53,17 @@ public class Consultant extends AllUser {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultant")
     private List<LikeDetail> likeDetails = new ArrayList<>();
 
+    public Consultant(String consultantId, String consultantPw, String consultantProfile,
+        boolean b) {
+        this.setUser(consultantId, consultantPw);
+        this.profileImage = consultantProfile;
+        this.isAccepted = b;
+    }
+
+    public void addPoint(int point) {
+        this.point += point;
+    }
+
 
     public void modifyInfo(String profileImage, Address address, String phoneNumber,
         String email, String bankCompany, String bankAccount) {
