@@ -57,7 +57,7 @@ public class NotificationServiceTest {
             "content1", "title1");
 
         NotificationRequestDto notificationRequestDto = new NotificationRequestDto(
-            notification.getId(), "title1", "content1", notification.getCreatedDate());
+            notification.getId(), "title1", "content1");
 
         //when
         NotificationResponseDto savedNotification = notificationService.createNotification(
@@ -116,10 +116,11 @@ public class NotificationServiceTest {
         notificationRepository.save(notification);
 
         NotificationRequestDto notificationRequestDto = new NotificationRequestDto(
-            notification.getId(), "title1", "content1", notification.getCreatedDate());
+            notification.getId(), "title1", "content1");
 
         //when
-        NotificationResponseDto notificationResponseDto = notificationService.deleteNotification(notificationRequestDto);
+        NotificationResponseDto notificationResponseDto = notificationService.deleteNotification(
+            notificationRequestDto);
 
         //then
         Assertions.assertThat(notificationResponseDto.getTitle()).isEqualTo("title1");

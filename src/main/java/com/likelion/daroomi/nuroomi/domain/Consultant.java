@@ -13,11 +13,15 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "consultant_id"))
 public class Consultant extends AllUser {
 

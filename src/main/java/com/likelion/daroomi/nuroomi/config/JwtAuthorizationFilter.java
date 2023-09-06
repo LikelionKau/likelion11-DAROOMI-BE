@@ -36,7 +36,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             "/consultant/login",
             "/consultant/create",
             "/consultantee/changePassword",
-            "/consultantee/logout"
+            "/consultantee/logout",
+            "/consulting/waiting",
+            "/consulting/start/*",
+            "/consulting/end/*"
         );
 
         if (list.contains(request.getRequestURI())) {
