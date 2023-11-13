@@ -27,22 +27,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         @NonNull HttpServletResponse response, @NonNull FilterChain chain)
         throws IOException, ServletException {
 
-        //왠지 모르겠는데 /** 안됨...
-        List<String> list = Arrays.asList(
-            "/consultantee/login",
-            "/consultantee/create",
-            "/consultantee/getUserName",
-            "/consultantee/modifyUser",
-            "/consultant/login",
-            "/consultant/create",
-            "/consultantee/changePassword",
-            "/consultantee/logout",
-            "/consulting/waiting",
-            "/consulting/start/*",
-            "/consulting/end/*"
-        );
 
-        if (list.contains(request.getRequestURI())) {
+        if (!request.getRequestURI().startsWith("/consultant")) {
             chain.doFilter(request, response);
             return;
         }
